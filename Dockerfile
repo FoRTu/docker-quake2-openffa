@@ -1,15 +1,12 @@
-#Imagen base del container
 FROM debian:stable-slim
 
-# Etiquetas con informacion adicional de la imagen
 LABEL maintainer="FoRTu" \
 maintainet.email="mikelfortuna@gmail.com" \
 maintainer.website="https://fortu.io/"
 
-# Carpeta de trabajo dentro del container
 WORKDIR /opt/quake2-openffa-server/
 
-# Ejecutar los comandos de instalacion de software
+# Install Updates + Quake2 & OpenFFA MOD:
 RUN apt update && \
 apt upgrade -y && \
 apt -y install curl apt-transport-https gnupg && \
@@ -29,17 +26,16 @@ rm -rf \
         /var/lib/apt/lists/* \
         /usr/share/doc/*
 
-# Agregar archivos a la imagen
+# Add server configuration file
 COPY AddFiles/server.cfg /opt/quake2-openffa-server/openffa/
 
-# crear usuario raso para la ejecucion del comando CMD
+# Define the user
 RUN groupadd -g 999 appuser && \
     useradd -r -u 999 -g appuser appuser
 USER appuser
 
-# Puestos susceptibles de se exppuestos en l arranque de container
 EXPOSE 27910/tcp
 EXPOSE 27910/udp
 
-# Ejecutar el comando al arrancar imagen, no a la hora de crearla
+# Command to run on container startup
 CMD ["/opt/quake2-openffa-server/r1q2ded","+set","game","openffa","+exec","server.cfg"]
