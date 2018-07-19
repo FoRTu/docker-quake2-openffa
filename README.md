@@ -1,4 +1,4 @@
-![Quake 2 logo](q2logo.png)
+![Quake 2 logo](https://raw.githubusercontent.com/FoRTu/docker-quake2-openffa/master/q2logo.png)
 
 # Quake 2 OpenFFA Dedicated Server
 
