@@ -1,29 +1,48 @@
-![Quake 2 logo](https://raw.githubusercontent.com/FoRTu/docker-quake2-openffa/master/q2logo.png)
+![Quake 2 logo](q2logo.png)
 
 # Quake 2 OpenFFA Dedicated Server
 
-Dockerized version of Quake 2 dedicated server with the OpenFFA mod. Using prebuilt r1q2ded debian package of my own repository, you can easily create a server to play quake 2 multiplayer. Thanks docker's magic you can create many servers as you want by only changing the listening port.
-
-## Customization
-
-Editing 'AddFiles/server.cfg' you can customize the server configuration. Changing the server name, time limit, maximum players etc. 
-
-Once changes have been done you is time to build the image. Just run the next command to create it:
-
-```docker build -t "[IMAGE TAG]" .```
-
-For xample:
-
-```docker build -t "games/q2-server"```
-
+Dockerized version of [Quake 2](https://es.wikipedia.org/wiki/Quake_II)  dedicated server with the [OpenFFA](https://github.com/skullernet/openffa) mod. Using prebuilt [r1q2ded](https://github.com/tastyspleen/r1q2-archive) debian package of [my own repository](https://apt.fortu.io/en.index.html), you can easily create a server to play quake 2 multiplayer. Thanks to the magic of Docker you can create as many servers as you want by changing only some environment variables.
 
 ## Usage
 
-Now that we have the image created, just start a container using that image by executing the following command:
+Running the following command will get a default server:
 
-```docker run -d --rm --name "Quake2_OpenFFA" -p [HOST PORT]:[CONTAINER PORT]/tcp -p [HOST PORT]:[CONTAINER PORT]/udp [IMAGE ID]```
+```
+docker run -d --rm --name "Quake2_OpenFFA" -p [HOST PORT]:[CONTAINER PORT]/tcp -p [HOST PORT]:[CONTAINER PORT]/udp [IMAGE ID]
+```
 
 For example:
 
-```docker run -d --rm --name "Quake2_OpenFFA" -p 27910:27910/tcp -p 27910:27910/udp 0d8cf1e41ba7```
+```
+docker run -d --rm --name "Quake2_OpenFFA" -p 27910:27910/tcp -p 27910:27910/udp 0d8cf1e41ba7
+```
 
+But if you want to customize the server, you can use the environment variables. These are the variables with the default values:
+
+```
+Q2_PORT="27910"
+Q2_HOSTNAME="Docker Quake2 OpenFFA Server"
+Q2_MAXCLIENTS="10"
+Q2_ADMIN="admin"
+Q2_ADMIN_PASSWORD="AdminPassw0rd"
+Q2_RCON_PASSWD="Rc0nPassw0rd"
+Q2_ADMIN_EMAIL="admin@example.com"
+Q2_ADMIN_WEBPAGE="https://example.com"
+Q2_MOTD="[=======================]\n\nQuake 2 OpenFFA Server\n(Docker Container)\n\nType 'menu' on console\n\n[=======================]"
+Q2_TIMELIMIT="30"
+Q2_FRAGLIMIT="25"
+Q2_IDLETIME="30"
+```
+
+You can change as many as you want using the `-e` or `--env` option. For example:
+
+```
+docker run -d --rm --name "Quake2_OpenFFA" -p 27910:27910/tcp -p 27910:27910/udp --env Q2_HOSTNAME="Q2 OpenFFA #1" 0d8cf1e41ba7
+docker run -d --rm --name "Quake2_OpenFFA" -p 27910:27910/tcp -p 27910:27910/udp --env Q2_HOSTNAME="Q2 OpenFFA #2" 0d8cf1e41ba7
+docker run -d --rm --name "Quake2_OpenFFA" -p 27911:27911/tcp -p 27911:27911/udp --env Q2_PORT="27911" --env Q2_HOSTNAME="Q2 OpenFFA #3" 0d8cf1e41ba7
+docker run -d --rm --name "Quake2_OpenFFA" -p 27912:27912/tcp -p 27912:27912/udp --env Q2_PORT="27912" --env Q2Q2_FRAG="15" 0d8cf1e41ba7
+...
+```
+
+Enjoy playing Quake!

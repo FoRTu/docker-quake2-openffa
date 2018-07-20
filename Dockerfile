@@ -4,7 +4,20 @@ LABEL maintainer="FoRTu" \
 maintainet.email="mikelfortuna@gmail.com" \
 maintainer.website="https://fortu.io/"
 
-WORKDIR /opt/quake2-openffa-server/
+WORKDIR /opt/quake2-openffa-server
+
+ENV Q2_PORT="27910"
+ENV Q2_HOSTNAME="Docker Quake2 OpenFFA Server"
+ENV Q2_MAXCLIENTS="10"
+ENV Q2_ADMIN="admin"
+ENV Q2_ADMIN_PASSWORD="AdminPassw0rd"
+ENV Q2_RCON_PASSWD="Rc0nPassw0rd"
+ENV Q2_ADMIN_EMAIL="admin@example.com"
+ENV Q2_ADMIN_WEBPAGE="https://example.com"
+ENV Q2_MOTD="[=======================]\n\nQuake 2 OpenFFA Server\n(Docker Container)\n\nType 'menu' on console\n\n[=======================]"
+ENV Q2_TIMELIMIT="30"
+ENV Q2_FRAGLIMIT="25"
+ENV Q2_IDLETIME="30"
 
 # Install Updates + Quake2 & OpenFFA MOD:
 RUN apt update && \
@@ -38,4 +51,17 @@ EXPOSE 27910/tcp
 EXPOSE 27910/udp
 
 # Command to run on container startup
-CMD ["/opt/quake2-openffa-server/r1q2ded","+set","game","openffa","+exec","server.cfg"]
+CMD /opt/quake2-openffa-server/r1q2ded +set game openffa \
++set port "$Q2_PORT" \
++set hostname "$Q2_HOSTNAME" \
++set maxclients "$Q2_MAXCLIENTS" \
++set ServerAdmin "$Q2_ADMIN" \
++set g_admin_password "$Q2_ADMIN_PASSWORD" \
++set rcon_password "$Q2_RCON_PASSWD" \
++set email "$Q2_ADMIN_EMAIL" \
++set webpage "$Q2_ADMIN_WEBPAGE" \
++set g_motd_message "$Q2_MOTD" \
++set timelimit "$Q2_TIMELIMIT" \
++set fraglimit "$Q2_FRAGLIMIT" \
++set g_idle_time "$Q2_IDLETIME" \
++exec ./server.cfg
