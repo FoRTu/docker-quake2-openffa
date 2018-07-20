@@ -41,7 +41,7 @@ You can change as many as you want using the `-e` or `--env` option. For example
 docker run -d --rm --name "Quake2_OpenFFA" -p 27910:27910/tcp -p 27910:27910/udp --env Q2_HOSTNAME="Q2 OpenFFA #1" 0d8cf1e41ba7
 docker run -d --rm --name "Quake2_OpenFFA" -p 27910:27910/tcp -p 27910:27910/udp --env Q2_HOSTNAME="Q2 OpenFFA #2" 0d8cf1e41ba7
 docker run -d --rm --name "Quake2_OpenFFA" -p 27911:27911/tcp -p 27911:27911/udp --env Q2_PORT="27911" --env Q2_HOSTNAME="Q2 OpenFFA #3" 0d8cf1e41ba7
-docker run -d --rm --name "Quake2_OpenFFA" -p 27912:27912/tcp -p 27912:27912/udp --env Q2_PORT="27912" --env Q2Q2_FRAG="15" 0d8cf1e41ba7
+docker run -d --rm --name "Quake2_OpenFFA" -p 27912:27912/tcp -p 27912:27912/udp --env Q2_PORT="27912" --env Q2_FRAG="15" 0d8cf1e41ba7
 ...
 ```
 
