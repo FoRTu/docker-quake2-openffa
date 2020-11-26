@@ -2,7 +2,7 @@ FROM debian:stable-slim
 
 LABEL maintainer="FoRTu" \
 maintainet.email="mikelfortuna@gmail.com" \
-maintainer.website="https://fortu.io/"
+maintainer.website="https://github.com/FoRTu/docker-quake2-openffa"
 
 WORKDIR /opt/quake2-openffa-server
 
@@ -22,12 +22,11 @@ ENV Q2_IDLETIME="30"
 # Install Updates + Quake2 & OpenFFA MOD:
 RUN apt update && \
 apt upgrade -y && \
-apt -y install curl apt-transport-https gnupg && \
-curl -L "https://apt.fortu.io/repo.key" | apt-key add - && \
-echo "deb https://apt.fortu.io/ stretch main contrib non-free" | tee -a /etc/apt/sources.list && \
-apt update && \
-apt install -y quake2-openffa-server && \
-apt purge -y curl apt-transport-https gnupg && \
+apt -y install wget && \
+wget "http://files.fortu.io/quake2-openffa-server_8012-fdf5db3_amd64.deb" && \
+dpkg -i quake2-openffa-server_8012-fdf5db3_amd64.deb && \
+rm quake2-openffa-server_8012-fdf5db3_amd64.deb && \
+apt purge -y curl && \
 apt-get -y autoclean && \
 apt-get -y autoremove && \
 rm -rf \
