@@ -23,7 +23,7 @@ ENV Q2_IDLETIME="30"
 RUN apt update && \
 apt upgrade -y && \
 apt -y install wget && \
-wget "http://files.fortu.io/quake2-openffa-server_8012-fdf5db3_amd64.deb" && \
+wget "https://files.fortu.io/quake2-openffa-server_8012-fdf5db3_amd64.deb" && \
 dpkg -i quake2-openffa-server_8012-fdf5db3_amd64.deb && \
 rm quake2-openffa-server_8012-fdf5db3_amd64.deb && \
 apt purge -y wget && \
